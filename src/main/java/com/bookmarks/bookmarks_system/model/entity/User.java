@@ -4,10 +4,9 @@ package com.bookmarks.bookmarks_system.model.entity;
 import com.bookmarks.bookmarks_system.model.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Table (name = "users")
 @Entity
@@ -15,10 +14,13 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class User {
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String username;
     private String email;
     private String phone;
@@ -36,10 +38,6 @@ public class User {
                 .phone(dto.getPhone())
                 .password(dto.getPassword())
                 .build();
-//        if (dto.getMarks() != null){
-//            List <Mark> markEntity = dto.getMarks().stream().map(markDto -> Mark.toEntity(markDto,user)).collect(Collectors.toList() );
-//            user.setMarks(markEntity);
-//        }
         return user;
     }
 }

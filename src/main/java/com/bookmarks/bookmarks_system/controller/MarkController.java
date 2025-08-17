@@ -1,12 +1,9 @@
 package com.bookmarks.bookmarks_system.controller;
 
-
 import com.bookmarks.bookmarks_system.model.dto.MarkDto;
-import com.bookmarks.bookmarks_system.model.entity.Mark;
 import com.bookmarks.bookmarks_system.service.MarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
