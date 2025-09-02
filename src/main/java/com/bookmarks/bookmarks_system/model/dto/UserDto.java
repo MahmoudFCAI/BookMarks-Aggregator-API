@@ -1,6 +1,6 @@
 package com.bookmarks.bookmarks_system.model.dto;
 
-import com.bookmarks.bookmarks_system.model.entity.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,16 +18,5 @@ public class UserDto {
     private String email;
     private String phone;
     private String password;
-
-
-    public static UserDto toDto(User entity) {
-        return UserDto.builder()
-                .id(entity.getId())
-                .username(entity.getUsername())
-                .email(entity.getEmail())
-                .phone(entity.getPhone())
-                .password(entity.getPassword())
-                .build();
-    }
 
 }

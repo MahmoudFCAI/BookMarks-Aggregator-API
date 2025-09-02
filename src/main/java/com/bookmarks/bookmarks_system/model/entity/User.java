@@ -1,7 +1,6 @@
 package com.bookmarks.bookmarks_system.model.entity;
 
 
-import com.bookmarks.bookmarks_system.model.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.ArrayList;
@@ -27,17 +26,7 @@ public class User {
     private String password;
 
     @OneToMany (mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Mark> marks = new ArrayList<>();
+    private List<Bookmark> Bookmarks = new ArrayList<>();
 
 
-    public static User toEntity(UserDto dto){
-        User user = User.builder()
-                .id(dto.getId())
-                .username(dto.getUsername())
-                .email(dto.getEmail())
-                .phone(dto.getPhone())
-                .password(dto.getPassword())
-                .build();
-        return user;
-    }
 }

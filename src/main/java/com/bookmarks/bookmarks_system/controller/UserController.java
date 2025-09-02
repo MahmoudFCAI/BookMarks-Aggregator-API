@@ -1,11 +1,13 @@
 package com.bookmarks.bookmarks_system.controller;
 
 
-import com.bookmarks.bookmarks_system.model.dto.MarkDto;
+import com.bookmarks.bookmarks_system.model.dto.BookmarkDto;
 import com.bookmarks.bookmarks_system.model.dto.UserDto;
-import com.bookmarks.bookmarks_system.service.MarkService;
+import com.bookmarks.bookmarks_system.service.BookmarkService;
 import com.bookmarks.bookmarks_system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,40 +16,51 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private MarkService markService;
+    @Autowired private UserService userService;
+    @Autowired private BookmarkService markService;
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable Integer id){
-        return userService.getUserById(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable Integer id){
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping
-    public List<UserDto> getAll(){
-        return userService.getAllUser();
+    public ResponseEntity<List<UserDto>>getAll(){
+        return ResponseEntity.ok(userService.getAllUser());
     }
 
     @PostMapping
-    public UserDto addUser(@RequestBody UserDto user){
-        return userService.saveUser(user);
+    public ResponseEntity<UserDto> addUser(@RequestBody UserDto user){
+        UserDto createdUser = userService.saveUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Integer id, @RequestBody UserDto user){
-        return userService.saveUser(user);
+    public ResponseEntity<UserDto> updateUser(@PathVariable Integer id, @RequestBody UserDto user){
+        return ResponseEntity.ok(userService.updateUser(id,user));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUserById(@PathVariable Integer id){
+    public ResponseEntity<Void>  deleteUserById(@PathVariable Integer id){
         userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{userId}/marks")
-    public List<MarkDto> getMarksForUser(@PathVariable Integer userId) {
-        return markService.getMarksForUser(userId);
+    @GetMapping("/{userId}/Bookmarks")
+    public ResponseEntity<List<BookmarkDto>>getMarksForUser(@PathVariable Integer userId) {
+        return ResponseEntity.ok(markService.getBookmarksForUser(userId));
     }
 
+    @PostMapping("/{userId}/userAddBookmark")
+    public ResponseEntity<BookmarkDto>addBookmark(@PathVariable Integer userId, @RequestBody BookmarkDto mark){
+        BookmarkDto createdBookmark = markService.addBookmarkToUser(userId, mark);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBookmark);
+    }
+
+    @PutMapping("/{id}/userUpdateBookmark/{userId}")
+    public ResponseEntity<BookmarkDto> updateBookmark(@PathVariable Integer userId, @PathVariable Integer id, @RequestBody BookmarkDto mark) {
+        mark.setId(id);
+        return ResponseEntity.ok(markService.updateBookmarkToUser(userId, mark));
+    }
 
 }

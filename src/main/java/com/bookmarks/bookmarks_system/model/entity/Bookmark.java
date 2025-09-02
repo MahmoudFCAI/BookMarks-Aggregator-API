@@ -1,12 +1,13 @@
 package com.bookmarks.bookmarks_system.model.entity;
 
-import com.bookmarks.bookmarks_system.model.dto.MarkDto;
+
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "marks")
+@Table(name = "Bookmarks")
 @Entity
 @Data
 @Builder
@@ -14,7 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
-public class Mark {
+public class Bookmark {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -37,16 +39,6 @@ public class Mark {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    public static Mark toEntity(MarkDto dto, User user, Set<Tag> tags) {
-        return Mark.builder()
-                .id(dto.getId())
-                .url(dto.getUrl())
-                .name(dto.getName())
-                .des(dto.getDes())
-                .type(dto.getType())
-                .user(user)
-                .tags(tags)
-                .build();
-    }
+
 }
 

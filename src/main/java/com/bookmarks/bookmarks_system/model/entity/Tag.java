@@ -23,5 +23,5 @@ public class Tag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    private Set<Mark> marks = new HashSet<>();
+    private Set<Bookmark> Bookmarks = new HashSet<>();
 }
